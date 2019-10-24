@@ -5,7 +5,7 @@ export class Access {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 30 })
+  @Column({ length: 30, unique: true })
   title: string;
 
   @Column({ length: 1000 })

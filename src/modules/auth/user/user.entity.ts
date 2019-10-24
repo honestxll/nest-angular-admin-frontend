@@ -7,10 +7,10 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 30 })
+  @Column({ length: 30, unique: true })
   name: string;
 
-  @Column('varchar', { length: 50, nullable: true })
+  @Column({ length: 50, nullable: true })
   email: string;
 
   @Column({ type: 'enum', enum: IsAdmin, default: IsAdmin.NORMAL })

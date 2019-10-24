@@ -7,7 +7,7 @@ export class Role {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 30 })
+  @Column({ length: 30, unique: true })
   name: string;
 
   @Column({ type: 'enum', enum: RoleStatus, default: RoleStatus.ENABLED })
