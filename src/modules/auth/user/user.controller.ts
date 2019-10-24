@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Put, Param } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, Get } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto, UpdatePasswordDto } from './user.dto';
 
@@ -14,5 +14,10 @@ export class UserController {
   @Put(':id/password')
   async updatePassword(@Param('id') id: string, @Body() data: UpdatePasswordDto) {
     return await this.userService.updatePassword(id, data);
+  }
+
+  @Get(':id')
+  async show(@Param('id') id: string) {
+    return await this.userService.show(id);
   }
 }

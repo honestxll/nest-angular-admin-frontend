@@ -15,11 +15,19 @@ export class UserService {
     const { name } = data;
     const user = await this.userRepository.findOne({ name });
     if (user) {
-      throw new BadRequestException('用户名已经存在了');
+      throw new BadRequestException('用户名已经存在了。');
     }
     const entity = await this.userRepository.create(data);
     await this.userRepository.save(entity);
     return entity;
+  }
+
+  async show(id: string) {
+    const user = await this.userRepository.findOne(id);
+    if (!user) {
+      throw new NotFoundException('没找到该用户。');
+    }
+    return user;
   }
 
   async updatePassword(id: string, data: UpdatePasswordDto) {
