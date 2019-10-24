@@ -1,8 +1,9 @@
-import { Controller, Post, Body, Put, Param, Get } from '@nestjs/common';
+import { Controller, Post, Body, Put, Param, Get, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto, UpdatePasswordDto } from './user.dto';
 
 @Controller('user')
+@UseInterceptors(ClassSerializerInterceptor)
 export class UserController {
   constructor(private userService: UserService) { }
 

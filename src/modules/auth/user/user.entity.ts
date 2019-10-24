@@ -9,6 +9,7 @@ import {
   BeforeInsert,
   BeforeUpdate,
 } from 'typeorm';
+import { Exclude } from 'class-transformer';;
 import * as bcrypt from 'bcrypt';
 
 import { IsAdmin, UserStatus } from '../../../core/enums/user.enum';
@@ -26,6 +27,7 @@ export class User {
   email: string;
 
   @Column()
+  @Exclude()
   password: string;
 
   @Column({ type: 'enum', enum: IsAdmin, default: IsAdmin.NORMAL })
