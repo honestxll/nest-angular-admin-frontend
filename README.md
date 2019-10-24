@@ -45,4 +45,39 @@ export class AppModule {}
 ```bash
 nest g mo user modules/auth
 nest g co user modules/auth
+nest g s user modules/auth
+```
+
+后面的表都是以些类推，有两张中间表， `user_role` 和 `role_access` 他们的关系是这样的：
+
+```js
+user.entity.js
+
+@ManyToMany(type => Role)
+@JoinTable({ name: 'user_role' })
+roles: Role[];
+```
+
+```js
+role.entity.js
+
+@ManyToMany(type => Access)
+@JoinTable({ name: 'role_access' })
+access: Access[];
+```
+
+基础的工作做完了剩下来就是接口的 `crud` 了，这里在用户模块这里，我们需要安装几个包来去掉用户密码的显示和哈希密码
+
+```bash
+npm i bcrypt class-transformer --save
+```
+
+```js
+user.entity.js
+
+@BeforeInsert()
+@BeforeUpdate()
+async hasPassword() {
+  this.password = await bcrypt.hash(this.password, 12);
+}
 ```
