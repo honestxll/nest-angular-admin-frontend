@@ -1,4 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, JoinTable, ManyToMany } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  JoinTable,
+  ManyToMany,
+  BeforeInsert,
+  BeforeUpdate,
+} from 'typeorm';
+import * as bcrypt from 'bcrypt';
+
 import { IsAdmin, UserStatus } from '../../../core/enums/user.enum';
 import { Role } from '../role/role.entity';
 
@@ -12,6 +24,9 @@ export class User {
 
   @Column({ length: 50, nullable: true })
   email: string;
+
+  @Column()
+  password: string;
 
   @Column({ type: 'enum', enum: IsAdmin, default: IsAdmin.NORMAL })
   isAdmin: IsAdmin;
@@ -28,4 +43,14 @@ export class User {
 
   @UpdateDateColumn()
   updated: Date;
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hasPassword() {
+    this.password = await bcrypt.hash(this.password, 12);
+  }
+
+  async comparePassword(password: string) {
+    return await bcrypt.compare(password, this.password);
+  }
 }
