@@ -3,7 +3,7 @@ export enum IsAdmin {
   ADMIN = 1,
 }
 
-export enum Status {
+export enum UserStatus {
   DISABLED = 0,
   ENABLED = 1,
 }

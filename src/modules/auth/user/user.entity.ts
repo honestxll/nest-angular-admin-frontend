@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { IsAdmin, Status } from '../../../core/enums/user.enum';
+import { IsAdmin, UserStatus } from '../../../core/enums/user.enum';
 
 @Entity()
 export class User {
@@ -15,8 +15,8 @@ export class User {
   @Column({ type: 'enum', enum: IsAdmin, default: IsAdmin.NORMAL })
   isAdmin: IsAdmin;
 
-  @Column({ type: 'enum', enum: Status, default: Status.ENABLED })
-  status: Status;
+  @Column({ type: 'enum', enum: UserStatus, default: UserStatus.ENABLED })
+  status: UserStatus;
 
   @CreateDateColumn()
   created: Date;
